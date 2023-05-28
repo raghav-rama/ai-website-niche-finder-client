@@ -11,6 +11,8 @@ const Form = () => {
     performCleanUp,
     setPerformCleanUp,
     setFormData,
+    canDownload,
+    setCanDownload,
   } = React.useContext(FormContext);
   // const { myFormData } = React.useContext(FormContext);
   const { host } = React.useContext(HostContext);
@@ -24,9 +26,26 @@ const Form = () => {
     csvFile: formContext?.csvFile,
   };
 
+  const handleDownload = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      e.preventDefault();
+      const response = await axios.get(`${host}/download_csv`, { responseType: 'blob' });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'output.csv');
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('submit');
+    setCanDownload!(false);
     try {
       const formData = new FormData(e.currentTarget);
       
@@ -148,6 +167,7 @@ const Form = () => {
         </label>
         <br />
         {performCleanUp && <CleanUp value="no" label="No" />}
+        {canDownload && <button onClick={handleDownload}>Download!</button>}
         <button disabled={!formContext?.csvFile} type="submit">
           Submit
         </button>

@@ -12,7 +12,7 @@ interface IOption {
 type OptionType = IOption;
 
 const CleanUp: React.FC<OptionType> = (props: OptionType) => {
-  const { setPerformCleanUp, formData } = React.useContext(FormContext);
+  const { setPerformCleanUp, formData, setCanDownload } = React.useContext(FormContext);
   const [selectedOption, setSelectedOption] = React.useState<string>(
     props.value
   );
@@ -25,6 +25,9 @@ const CleanUp: React.FC<OptionType> = (props: OptionType) => {
         formData
       );
       console.log(uploadCsvResponse.data);
+      if(uploadCsvResponse.data.status === 'success') {
+        setCanDownload!(true);
+      }
     } catch (error) {
       console.error('Error occurred while uploading CSV:', error);
     }

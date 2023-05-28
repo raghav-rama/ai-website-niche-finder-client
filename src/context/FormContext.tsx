@@ -22,6 +22,8 @@ interface IFormContext {
   formData: FormData | undefined;
   setFormData: React.Dispatch<React.SetStateAction<FormData>> | undefined;
   myFormData: FormData | undefined;
+  canDownload: boolean | undefined;
+  setCanDownload: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 }
 
 export type FormContextType = IFormContext;
@@ -34,6 +36,8 @@ export const FormContext = React.createContext<FormContextType>({
   formData: undefined,
   setFormData: undefined,
   myFormData: undefined,
+  canDownload: undefined,
+  setCanDownload: undefined,
 });
 
 type ChildrenType = {
@@ -200,6 +204,7 @@ export const FormProvider = ({
   const [performCleanUp, setPerformCleanUp] = React.useState<boolean>(false);
   const [formData, setFormData] = React.useState<FormData>(new FormData());
   const myFormData = new FormData();
+  const [canDownload, setCanDownload] = React.useState<boolean>(false);
   return (
     <FormContext.Provider
       value={{
@@ -210,6 +215,8 @@ export const FormProvider = ({
         formData,
         setFormData,
         myFormData,
+        canDownload,
+        setCanDownload,
       }}
     >
       {children}
