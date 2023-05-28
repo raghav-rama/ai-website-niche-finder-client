@@ -67,6 +67,7 @@ const Form = () => {
             name="fromRow"
             type="number"
             placeholder="From Row"
+            value={formContext?.fromRow}
             onChange={e =>
               setFormContext &&
               setFormContext({
@@ -83,6 +84,7 @@ const Form = () => {
             name="toRow"
             type="number"
             placeholder="To Row"
+            value={formContext?.toRow}
             onChange={e =>
               setFormContext &&
               setFormContext({ ...formFields, toRow: parseInt(e.target.value) })
@@ -96,6 +98,7 @@ const Form = () => {
             name="batchLength"
             type="number"
             placeholder="Batch Length"
+            value={formContext?.batchLength}
             onChange={e =>
               setFormContext &&
               setFormContext({
@@ -111,6 +114,7 @@ const Form = () => {
           <textarea
             name="promptContext"
             placeholder="Prompt Context"
+            value={formContext?.promptContext}
             onChange={e =>
               setFormContext &&
               setFormContext({ ...formFields, promptContext: e.target.value })
@@ -123,6 +127,7 @@ const Form = () => {
           <textarea
             name="promptQuestion"
             placeholder="Prompt Question"
+            value={formContext?.promptQuestion}
             onChange={e =>
               setFormContext &&
               setFormContext({ ...formFields, promptQuestion: e.target.value })
