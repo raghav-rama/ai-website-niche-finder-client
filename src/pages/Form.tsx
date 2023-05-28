@@ -30,12 +30,12 @@ const Form = () => {
     try {
       const formData = new FormData(e.currentTarget);
       
-      myFormData!.append('fromRow', formContext!.fromRow);
+      /*myFormData!.append('fromRow', formContext!.fromRow);
       myFormData!.append('toRow', formContext!.toRow);
       myFormData!.append('batchLength', formContext!.batchLength);
       myFormData!.append('promptContext', formContext!.promptContext);
       myFormData!.append('promptQuestion', formContext!.promptQuestion);
-      myFormData!.append('csvFile', formContext!.csvFile, 'input.csv');
+      myFormData!.append('csvFile', formContext!.csvFile, 'input.csv');*/
       
       setFormData!(formData);
 
