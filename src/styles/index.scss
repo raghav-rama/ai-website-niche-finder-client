@@ -13,3 +13,16 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+body {
+  background-color: #282c34;
+  color: #61dafb;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  display: flex;
+  place-items: center;
+  place-content: center;
+  height: 100vh;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 2px rgba(255, 255, 255, 0.5);
+}
