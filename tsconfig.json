@@ -28,6 +28,7 @@
       "@styles/*": ["src/styles/*"],
       "@assets/*": ["src/assets/*"],
       "@types/*": ["src/types/*"],
+      "@context/*": ["src/context/*"],
       "@public/*": ["public/*"]
     }
   },
