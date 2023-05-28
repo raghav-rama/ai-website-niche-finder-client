@@ -12,7 +12,7 @@ const Form = () => {
     setPerformCleanUp,
     setFormData,
   } = React.useContext(FormContext);
-  const { myFormData } = React.useContext(FormContext);
+  // const { myFormData } = React.useContext(FormContext);
   const { host } = React.useContext(HostContext);
   // TODO: this isn't required in my opinion, *** not a bug ***
   const formFields = {
