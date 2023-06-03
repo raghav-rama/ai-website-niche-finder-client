@@ -12,26 +12,11 @@ interface IOption {
 type OptionType = IOption;
 
 const CleanUp: React.FC<OptionType> = (props: OptionType) => {
-  const { setPerformCleanUp, formData, setCanDownload } = React.useContext(FormContext);
+  const { setPerformCleanUp, formData, postFormData } = React.useContext(FormContext);
   const [selectedOption, setSelectedOption] = React.useState<string>(
     props.value
   );
   const { host } = React.useContext(HostContext);
-
-  const postFormData = async () => {
-    try {
-      const uploadCsvResponse = await axios.post(
-        `${host}/upload_csv`,
-        formData
-      );
-      console.log(uploadCsvResponse.data);
-      if(uploadCsvResponse.data.status === 'success') {
-        setCanDownload!(true);
-      }
-    } catch (error) {
-      console.error('Error occurred while uploading CSV:', error);
-    }
-  };
 
   const handlePerformCleanUp = async () => {
     const { data } = await axios.post(`${host}/cleanup`, {
@@ -40,7 +25,7 @@ const CleanUp: React.FC<OptionType> = (props: OptionType) => {
     console.log(data);
     if (data) {
       setPerformCleanUp!(false);
-      await postFormData();
+      await postFormData!(formData);
     }
   };
 
