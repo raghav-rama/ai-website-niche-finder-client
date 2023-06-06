@@ -30,18 +30,23 @@ const Form = () => {
   const handleDownload = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       e.preventDefault();
-      const response = await axios.get(`${host}/download_csv`, { responseType: 'blob' });
+      const response = await axios.get(`${host}/download_csv`, {
+        responseType: 'blob',
+        withCredentials: true,
+      });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `results-row${formContext?.fromRow}-row${formContext?.toRow}.csv`);
+      link.setAttribute(
+        'download',
+        `results-row${formContext?.fromRow}-row${formContext?.toRow}.csv`
+      );
       document.body.appendChild(link);
       link.click();
     } catch (error) {
       console.error(error);
     }
   };
-  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,14 +54,14 @@ const Form = () => {
     setCanDownload!(false);
     try {
       const formData = new FormData(e.currentTarget);
-      
+
       /*myFormData!.append('fromRow', formContext!.fromRow);
       myFormData!.append('toRow', formContext!.toRow);
       myFormData!.append('batchLength', formContext!.batchLength);
       myFormData!.append('promptContext', formContext!.promptContext);
       myFormData!.append('promptQuestion', formContext!.promptQuestion);
       myFormData!.append('csvFile', formContext!.csvFile, 'input.csv');*/
-      
+
       setFormData!(formData);
 
       console.log(formData);
@@ -173,6 +178,32 @@ const Form = () => {
         <button disabled={!formContext?.csvFile} type="submit">
           Submit
         </button>
+        {/* <button
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            {
+              event.preventDefault();
+              axios
+                .get(`${host}/set_cookie`, { withCredentials: true })
+                .then(response => {
+                  console.log(response);
+                });
+            }
+          }}
+        >
+          Set Cookie
+        </button>
+        <button
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            event.preventDefault();
+            axios
+              .get(`${host}/get_cookie`, { withCredentials: true })
+              .then(response => {
+                console.log(response);
+              });
+          }}
+        >
+          Get Cookie
+        </button> */}
       </form>
     </>
   );

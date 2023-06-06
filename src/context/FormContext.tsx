@@ -26,7 +26,7 @@ interface IFormContext {
   myFormData: FormData | undefined;
   canDownload: boolean | undefined;
   setCanDownload: React.Dispatch<React.SetStateAction<boolean>> | undefined;
-  postFormData: ((formData: FormData | undefined) => Promise<void>) | undefined
+  postFormData: ((formData: FormData | undefined) => Promise<void>) | undefined;
 }
 
 export type FormContextType = IFormContext;
@@ -41,7 +41,7 @@ export const FormContext = React.createContext<FormContextType>({
   myFormData: undefined,
   canDownload: undefined,
   setCanDownload: undefined,
-  postFormData: undefined
+  postFormData: undefined,
 });
 
 type ChildrenType = {
@@ -209,15 +209,16 @@ export const FormProvider = ({
   const [formData, setFormData] = React.useState<FormData>(new FormData());
   const myFormData = new FormData();
   const [canDownload, setCanDownload] = React.useState<boolean>(false);
-  const {host} = React.useContext(HostContext);
+  const { host } = React.useContext(HostContext);
   const postFormData = async (formData: FormData | undefined) => {
     try {
       const uploadCsvResponse = await axios.post(
         `${host}/upload_csv`,
-        formData
+        formData,
+        { withCredentials: true }
       );
       console.log(uploadCsvResponse.data);
-      if(uploadCsvResponse.data.status === 'success') {
+      if (uploadCsvResponse.data.status === 'success') {
         setCanDownload!(true);
       }
     } catch (error) {
@@ -236,7 +237,7 @@ export const FormProvider = ({
         myFormData,
         canDownload,
         setCanDownload,
-        postFormData
+        postFormData,
       }}
     >
       {children}
