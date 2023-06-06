@@ -12,7 +12,8 @@ interface IOption {
 type OptionType = IOption;
 
 const CleanUp: React.FC<OptionType> = (props: OptionType) => {
-  const { setPerformCleanUp, formData, postFormData } = React.useContext(FormContext);
+  const { setPerformCleanUp, formData, postFormData } =
+    React.useContext(FormContext);
   const [selectedOption, setSelectedOption] = React.useState<string>(
     props.value
   );
