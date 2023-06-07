@@ -210,6 +210,9 @@ export const FormProvider = ({
   const myFormData = new FormData();
   const [canDownload, setCanDownload] = React.useState<boolean>(false);
   const { host } = React.useContext(HostContext);
+  // React.useEffect(() => {
+  //   console.log(`😀 host: ${host}`);
+  // });
   const postFormData = async (formData: FormData | undefined) => {
     try {
       const uploadCsvResponse = await axios.post(

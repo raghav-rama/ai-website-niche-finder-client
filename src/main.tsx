@@ -9,14 +9,14 @@ import { CleanUpProvider } from '@context/CleanUpContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <FormProvider>
-      <HostProvider>
+    <HostProvider>
+      <FormProvider>
         <CleanUpProvider>
           <BrowserRouter>
             <App />
           </BrowserRouter>
         </CleanUpProvider>
-      </HostProvider>
-    </FormProvider>
+      </FormProvider>
+    </HostProvider>
   </React.StrictMode>
 );
