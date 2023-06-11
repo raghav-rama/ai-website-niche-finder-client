@@ -14,6 +14,7 @@ const Form = () => {
     canDownload,
     setCanDownload,
     postFormData,
+    handleSetApi,
   } = React.useContext(FormContext);
   // const { myFormData } = React.useContext(FormContext);
   const { host } = React.useContext(HostContext);
@@ -163,6 +164,20 @@ const Form = () => {
               setFormContext({ ...formFields, promptQuestion: e.target.value })
             }
           />
+        </label>
+        <br />
+        <label>
+          OpenAI API Key:
+          <input
+            name="openAIKey"
+            type="text"
+            placeholder="OpenAI API Key, leave blank for default"
+            onChange={e =>
+              setFormContext &&
+              setFormContext({ ...formFields, openAIKey: e.target.value })
+            }
+          />
+          <button onClick={handleSetApi}>Set API Key</button>
         </label>
         <br />
         <label>

@@ -8,6 +8,7 @@ interface IForm {
   batchLength?: number | undefined;
   promptContext?: string | undefined;
   promptQuestion?: string | undefined;
+  openAIKey?: string | undefined;
   csvFile?: File | undefined;
 }
 
@@ -27,6 +28,7 @@ interface IFormContext {
   canDownload: boolean | undefined;
   setCanDownload: React.Dispatch<React.SetStateAction<boolean>> | undefined;
   postFormData: ((formData: FormData | undefined) => Promise<void>) | undefined;
+  handleSetApi: ((e: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
 }
 
 export type FormContextType = IFormContext;
@@ -42,6 +44,7 @@ export const FormContext = React.createContext<FormContextType>({
   canDownload: undefined,
   setCanDownload: undefined,
   postFormData: undefined,
+  handleSetApi: undefined,
 });
 
 type ChildrenType = {
@@ -203,6 +206,7 @@ export const FormProvider = ({
     Yoga
     `,
     promptQuestion: `What all niches do these ${20} websites belong to from my list and are they in English or non-english:`,
+    openAIKey: undefined,
     csvFile: undefined,
   });
   const [performCleanUp, setPerformCleanUp] = React.useState<boolean>(false);
@@ -228,6 +232,19 @@ export const FormProvider = ({
       console.error('Error occurred while uploading CSV:', error);
     }
   };
+  const handleSetApi = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    try {
+      const setApiKeyResponse = await axios.post(
+        `${host}/check_api_key`,
+        { apiKey: formContext.openAIKey },
+        { withCredentials: true }
+      );
+      console.log(setApiKeyResponse.data);
+    } catch (error) {
+      console.error('Error occurred while setting API key:', error);
+    }
+  };
   return (
     <FormContext.Provider
       value={{
@@ -241,6 +258,7 @@ export const FormProvider = ({
         canDownload,
         setCanDownload,
         postFormData,
+        handleSetApi,
       }}
     >
       {children}
